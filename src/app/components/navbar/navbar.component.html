@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home"
+      ><strong>Auth0</strong><small>app</small></a
+    >
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a routerLink="/home" routerLinkActive="active" class="nav-link"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a routerLink="/precios" routerLinkActive="active" class="nav-link"
+            >Precios</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
+          <a routerLink="/protegida" routerLinkActive="active" class="nav-link"
+            >Protegida</a
+          >
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <!-- <button
+          (click)="auth.loginWithRedirect()"
+          type="button"
+          class="btn btn-outline-primary"
+        >
+          Ingresar
+        </button>
+        <button type="button" class="btn btn-outline-danger">Salir</button> -->
+      </span>
+      <div class="" *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+        <button
+          (click)="
+            auth.logout({
+              logoutParams: { returnTo: document.location.origin }
+            })
+          "
+          class="btn btn-outline-danger"
+        >
+          Salir
+        </button>
+      </div>
+
+      <ng-template #loggedOut>
+        <button
+          (click)="auth.loginWithRedirect()"
+          class="btn btn-outline-success"
+        >
+          Ingresar
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</nav>
